@@ -1,37 +1,35 @@
 import { useState, useEffect } from 'react'
 import Header from './Components/Header'
-import Nav from './Components/Nav'
+import { Route, Routes, BrowserRouter, useParams } from 'react-router-dom'
+import UsersView from './Components/UsersView'
+import Loading from './Components/Loading'
 
 
 
 import './App.css'
 import MainView from './Components/MainView'
+import ArticleById from './Components/Article-By-Id'
+import FilterBar from './Components/FilterBar'
 
 function App() {
-const [articles, setArticles] = useState([])
+const [filterTerm, setFilterTerm] = useState("")
 
-useEffect(() => {
-    fetch("https://nc-news-aa8x.onrender.com/api/articles")
-      .then((response) => {
-        console.log(response)
-
-        return response.json();
-      })
-      .then((articles) => {
-        console.log(articles)
-        setArticles(articles);
-      });
-  }, []);
-
-
-    
 
     return (
-        <>
+      
+    <BrowserRouter>
+    <div>
  <Header/>
-<Nav/>
-<MainView articles={articles}/>
- </>
+
+</div>
+
+<Routes>
+<Route path="/" element= {<MainView filterTerm={filterTerm} setFilterTerm={setFilterTerm}/>} />
+<Route path="/articles/:articleid" element={<ArticleById  />} />
+<Route path="/users" element={<UsersView/>}/>
+</Routes>
+</BrowserRouter>
+
 
     )
 

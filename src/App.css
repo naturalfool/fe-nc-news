@@ -5,7 +5,42 @@
   text-align: center;
 }
 
+body{
+  background-color:#f3f9ab;
+}
+
 .individual-article{
   border: 1px solid black;
   list-style: none;
+  margin: 20px;
+  padding: 10px;
+  background-color:#9191F3;
+  text-align: center;
+  color: #000000;
+  margin-right: 2.5rem;
+}
+
+.individual-article:hover{
+  filter: drop-shadow(0 0 2em #01042daa);
+}
+
+
+header {
+  position: sticky;
+  top: 0;
+  color: antiquewhite;
+  background-color: indianred;
+  border: solid rgb(255, 0, 0) 2px;
+  border-radius: 20px;
+  grid-column: 1 / 1;
+  grid-row: 1 / 1;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-flow:column;
+  color: rgb(55, 54, 54);
+}
+
+img {
+  max-width: 100%;
 }

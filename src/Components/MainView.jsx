@@ -1,10 +1,22 @@
 import Articles from "./Articles"
+import { useState, useEffect } from "react";
+import Loading from "./Loading";
+import FilterBar from "./FilterBar";
 
-const MainView = ({articles}) => {
+
+
+const MainView = ({filterTerm, setFilterTerm}) => {
+
+    const [isLoading, setIsLoading] = useState(false)
  
+
+    if (isLoading) return <Loading/>
+
     return (
-    
-        <Articles articles = {articles}/>
+    <section>
+        <FilterBar setFilterTerm={setFilterTerm}/>
+        <Articles filterTerm={filterTerm}/>
+        </section>
     )
 
 
