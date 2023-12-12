@@ -28,24 +28,14 @@ const Articles = ({filterTerm}) => {
     if (isLoading) return <Loading/>
     
 
-    if (filterTerm === "football" || filterTerm === "cooking" || filterTerm === "coding"){
 
-    return (
-        <ul id="articles-list">
-          {articles.filter((article) => article.topic === filterTerm).map((article) => {
-            return <ArticleCard key={article.article_id} article={article} />;
-          })}
-        </ul>
-      );
-} else {
-    return (
-        <ul id="articles-list">
-        {articles.map((article) => {
-          return <ArticleCard key={article.article_id} article={article} />;
-        })}
-      </ul>
-    )
-}
+return (
+    <ul id="articles-list">
+    {articles.map((article) => {
+      return <ArticleCard key={article.article_id} article={article} />;
+    })}
+  </ul>
+)
 
 }
 

@@ -57,3 +57,14 @@ button{
 h1{
   color: #3e3d3d;
 }
+
+.individual-comment{
+  border: 1px solid black;
+  list-style: none;
+  margin: 20px;
+  padding: 10px;
+  background-color:#9191F3;
+  text-align: center;
+  color: #000000;
+  margin-right: 2.5rem;
+}
