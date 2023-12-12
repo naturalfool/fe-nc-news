@@ -1,29 +1,22 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-// import { getArticleById } from "../utils/api.utils";
+import { getArticleById } from "../utils/api.utils";
 import Loading from "./Loading";
 
 
-const ArticleById = () => {
- 
+const SingleArticle = () => {
+    const {articleid} = useParams()
+    console.log(useParams())
     const [singleArticle, setSingleArticle] = useState({})
     const [isLoading, setIsLoading] = useState(true)
 
-
-    useEffect(() => {
-        fetch("https://nc-news-aa8x.onrender.com/api/articles")
-        .then((response) => {
-            
-            return response.json();
-        })
-        .then((articles) => {
-            
-            setArticles(articles);
-            setIsLoading(false)
-        });
-    }, []);
-    
-
+useEffect(() => {
+    getArticleById(articleid).then((article) => {
+        setSingleArticle(article)
+        setIsLoading(false)
+console.log(article)
+    })
+}, [articleid])
 
 
 
@@ -33,7 +26,7 @@ const ArticleById = () => {
 if (isLoading) return <Loading/>
 
 return (
-    <article>
+    <article className="individual-article">
         <h3>{topic}</h3>
         <h1>{title}</h1>
         <h4>written by: {author}</h4>
@@ -48,4 +41,4 @@ return (
 
 }
 
-export default ArticleById
+export default SingleArticle

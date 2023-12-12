@@ -44,3 +44,16 @@ header {
 img {
   max-width: 100%;
 }
+
+button{
+  border: none;
+  background: none;
+  padding: none;
+  margin: none;
+  padding-inline: 0px;
+  padding-block: 0px;
+}
+
+h1{
+  color: #3e3d3d;
+}
