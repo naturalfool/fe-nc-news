@@ -31,8 +31,8 @@ const Articles = ({filterTerm}) => {
 
 return (
     <ul id="articles-list">
-    {articles.map((article) => {
-      return <ArticleCard key={article.article_id} article={article} />;
+    {articles.map((article, index) => {
+      return <ArticleCard key={article.article_id[index]} article={article} />;
     })}
   </ul>
 )

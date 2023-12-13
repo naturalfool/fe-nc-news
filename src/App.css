@@ -68,3 +68,26 @@ h1{
   color: #000000;
   margin-right: 2.5rem;
 }
+
+.individual-comment:hover{
+  filter: drop-shadow(0 0 2em #01042daa);
+}
+
+.vote-buttons {
+  font-size: 0.8em;
+  border: 1px solid black;
+}
+
+.vote-buttons:hover{
+  filter: drop-shadow(0 0 2em #01042daa);
+}
+
+#header-link {
+  padding: 0;
+  margin: 0;
+  text-decoration: underline #3e3d3d;
+}
+
+#sub-heading{
+  font-style: italic;
+}

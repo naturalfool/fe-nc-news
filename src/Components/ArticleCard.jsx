@@ -12,7 +12,7 @@ const ArticleCard = ({article}) => {
 <h4>{article.author}</h4>
 <img src={article.article_img_url}></img>
 <p>Topic: {article.topic}</p>
-<p>Votes: {article.votes} 👍</p>
+<p>Votes: {article.votes}</p>
 <p>Comments: {article.comment_count}</p>
         </li></Link>
     )
