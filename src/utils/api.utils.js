@@ -26,6 +26,9 @@ export const upvoteArticle = (articleid) => {
 return newsApi.patch(`/articles/${articleid}`,
 {inc_votes: 1}
 ).then((res) => {
+ if (res.request.status === 400){
+  return Promise.reject({status: 400, message: "Bad request"})
+ }
   return res.data
 })
 }
@@ -34,15 +37,19 @@ export const downvoteArticle = (articleid) => {
   return newsApi.patch(`/articles/${articleid}`,
   {inc_votes: -1}
   ).then((res) => {
+    if (res.request.status === 400){
+      return Promise.reject({status: 400, message: "Bad request"})
+     }
     return res.data
   })
   }
 
 
-export const postComment = (id, body, username) => {
+export const postComment = (articleid, body, author) => {
+  
   return newsApi
-    .post(`/articles/${id}/comments`, { username: username, body: body })
+    .post(`/articles/${articleid}/comments`, { username: author, body: body })
     .then((res) => {
-      return res.data;
+      return res.data.rows;
     });
 };

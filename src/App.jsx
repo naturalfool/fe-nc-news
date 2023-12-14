@@ -9,6 +9,7 @@ import UsersView from './Components/UsersView'
 import './App.css'
 import MainView from './Components/MainView'
 import SingleArticle from './Components/SingleArticle'
+import { UserProvider } from './Contexts/UserContext'
 
 
 function App() {
@@ -16,7 +17,7 @@ const [filterTerm, setFilterTerm] = useState("")
 
 
     return (
-      
+      <UserProvider>
     <BrowserRouter>
     <div>
  <Header/>
@@ -29,6 +30,7 @@ const [filterTerm, setFilterTerm] = useState("")
 <Route path="/users" element={<UsersView/>}/>
 </Routes>
 </BrowserRouter>
+</UserProvider>
 
 
     )

@@ -5,17 +5,17 @@ import Collapsible from "./Collapsible";
 import { getCommentsByArticleId } from "../utils/api.utils";
 import CommentAdder from "./CommentAdder";
 
-const Comments = ({comments, articleid}) => {
+const Comments = ({setComments, comments, articleid}) => {
     return (
 <section>
 
-<CommentAdder articleid={articleid}/>
+<CommentAdder setComments={setComments} comments={comments} articleid={articleid}/>
 
 <Collapsible>
 
         <ul id="comments-list">
           {comments.map((comment, index) => {
-            return <CommentCard key={comment.article_id[index]} comment={comment} />;
+            return <CommentCard key={comment.comment_id} comment={comment} />;
           })}
         </ul>
         </Collapsible>

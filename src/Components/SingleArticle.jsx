@@ -4,7 +4,7 @@ import { getArticleById, getCommentsByArticleId } from "../utils/api.utils";
 import Loading from "./Loading";
 import Comments from "./Comments";
 import { upvoteArticle, downvoteArticle } from "../utils/api.utils";
-
+import Error from "./Error";
 
 
 
@@ -20,6 +20,9 @@ const SingleArticle = () => {
     const [isDisliked, setIsDisliked] = useState(false)
     const [likeButtonStyle, setLikeButtonStyle] = useState("normal")
     const [dislikeButtonStyle, setDislikeButtonStyle] = useState("normal")
+    const [likeButtonDisabled, setLikeButtonDisabled] = useState(false)
+    const [dislikeButtonDisabled, setDislikeButtonDisabled] = useState(false)
+    const [apiError, setApiError] = useState(null)
 
     useEffect(() => {
         getArticleById(articleid).then((article) => {
@@ -48,8 +51,12 @@ const SingleArticle = () => {
             setIsLiked(true)
             setArticleVote(articleVote + 1)
             upvoteArticle(articleid)
+            .catch((err) => {
+                setApiError(err)
+                setIsLoading(false)
+            })
             setLikeButtonStyle("clicked")
-            setDislikeButtonStyle("clicked")
+            setDislikeButtonDisabled(true)
             
         } else {
         downvoteArticle(articleid)
@@ -57,6 +64,7 @@ const SingleArticle = () => {
         setIsLiked(false)
         setLikeButtonStyle("normal")
         setDislikeButtonStyle("normal")
+        setDislikeButtonDisabled(false)
         }
     }
 
@@ -65,8 +73,12 @@ const SingleArticle = () => {
             setIsDisliked(true)
             setArticleVote(articleVote - 1)
             downvoteArticle(articleid)
+            .catch((err) => {
+                setApiError(err)
+                setIsLoading(false)
+            })
             setDislikeButtonStyle("clicked")
-            setLikeButtonStyle("clicked")
+            setLikeButtonDisabled(true)
            
         } else {
         upvoteArticle(articleid)
@@ -74,11 +86,13 @@ const SingleArticle = () => {
         setIsDisliked(false)
         setDislikeButtonStyle("normal")
         setLikeButtonStyle("normal")
+        setLikeButtonDisabled(false)
+        setDislikeButtonDisabled(false)
       
     }
 }
 
-
+if (apiError) return <Error message="Something went wrong!"/>
 
 if (isLoading) return <Loading/>
 
@@ -89,11 +103,11 @@ return (
         <h4>written by: {author}</h4>
         <img src={article_img_url}></img>
         <p>{body}</p>
-        <p>votes: {articleVote} <button  className={likeButtonStyle} onClick={upVote}>👍</button>
-        <button className={dislikeButtonStyle} onClick={downVote}>👎</button></p>
+        <p>votes: {articleVote} <button disabled={likeButtonDisabled}  className={likeButtonStyle} onClick={upVote}>👍</button>
+        <button disabled ={dislikeButtonDisabled} className={dislikeButtonStyle} onClick={downVote}>👎</button></p>
         <p>{comment_count} comments:</p>
         <div className="comments">
-        <Comments articleid={articleid} comments={comments}/>
+        <Comments articleid={articleid} comments={comments} setComments={setComments}/>
         </div>
     </article>
 

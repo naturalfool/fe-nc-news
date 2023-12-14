@@ -2,19 +2,24 @@ import { useContext, useState } from "react"
 import { postComment } from "../utils/api.utils"
 import { UserContext } from "../Contexts/UserContext"
 
-const CommentAdder = ({articleid}) => {
-    // const { user, setUser } = useContext(UserContext);
+const CommentAdder = ({articleid, comments, setComments}) => {
+    const { user, setUser } = useContext(UserContext);
     const [comment, setComment] = useState("")
-// console.log(user)
 
-    function handleSubmit(event){
-event.preventDefault()
-postComment(articleid, comment, user.username)
-.then((res) => {
-console.log(res)
-})
+function handleChange(event){
+setComment(event.target.value)
+}
 
 
+    function handleSubmit(e){
+        e.preventDefault()
+       
+        postComment(articleid, comment, user.username)
+        .then((res) => {
+            const newComment = res
+            setComments([newComment, ...comments])
+            return comments
+        })
     }
 
 
@@ -28,9 +33,7 @@ return (
          placeholder="..."
         cols="50"
         rows="5"
-        onChange={(event) => {
-            setComment(event.target.value)
-        }}
+        onChange={handleChange}
         ></textarea>
        <button  id="post-comment-button">Post comment</button>
     </form>
