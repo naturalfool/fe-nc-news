@@ -45,6 +45,13 @@ img {
   max-width: 100%;
 }
 
+form {
+  position:relative;
+  max-width: 100%;
+  margin:0;
+  padding: 0;
+}
+
 button{
   border: none;
   background: none;
@@ -90,4 +97,23 @@ h1{
 
 #sub-heading{
   font-style: italic;
+}
+
+#post-comment-button {
+  margin-top: 0;
+}
+
+#add-comment-label{
+  position:static;
+}
+
+.normal {
+  font-size: 0.8em;
+  border: 1px solid black;
+}
+
+.clicked {
+  font-size: 0.8em;
+  border: 1px solid black;
+  opacity: 0.5;
 }

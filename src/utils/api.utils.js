@@ -29,3 +29,20 @@ return newsApi.patch(`/articles/${articleid}`,
   return res.data
 })
 }
+
+export const downvoteArticle = (articleid) => {
+  return newsApi.patch(`/articles/${articleid}`,
+  {inc_votes: -1}
+  ).then((res) => {
+    return res.data
+  })
+  }
+
+
+export const postComment = (id, body, username) => {
+  return newsApi
+    .post(`/articles/${id}/comments`, { username: username, body: body })
+    .then((res) => {
+      return res.data;
+    });
+};

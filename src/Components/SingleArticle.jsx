@@ -3,6 +3,8 @@ import { useParams, Link } from "react-router-dom";
 import { getArticleById, getCommentsByArticleId } from "../utils/api.utils";
 import Loading from "./Loading";
 import Comments from "./Comments";
+import { upvoteArticle, downvoteArticle } from "../utils/api.utils";
+
 
 
 
@@ -11,11 +13,14 @@ import Comments from "./Comments";
 const SingleArticle = () => {
     const {articleid} = useParams()
     const [comments, setComments] = useState([])
-    
     const [singleArticle, setSingleArticle] = useState({})
     const [isLoading, setIsLoading] = useState(true)
     const [articleVote, setArticleVote] = useState(0)
-    
+    const [isLiked, setIsLiked] = useState(false)
+    const [isDisliked, setIsDisliked] = useState(false)
+    const [likeButtonStyle, setLikeButtonStyle] = useState("normal")
+    const [dislikeButtonStyle, setDislikeButtonStyle] = useState("normal")
+
     useEffect(() => {
         getArticleById(articleid).then((article) => {
             setSingleArticle(article)
@@ -39,12 +44,42 @@ const SingleArticle = () => {
     singleArticle;
    
     const upVote = () => {
-        setArticleVote(articleVote + 1)
+        if(isLiked === false) {
+            setIsLiked(true)
+            setArticleVote(articleVote + 1)
+            upvoteArticle(articleid)
+            setLikeButtonStyle("clicked")
+            setDislikeButtonStyle("clicked")
+            
+        } else {
+        downvoteArticle(articleid)
+        setArticleVote(articleVote - 1)
+        setIsLiked(false)
+        setLikeButtonStyle("normal")
+        setDislikeButtonStyle("normal")
+        }
     }
 
     const downVote = () => {
-        setArticleVote(articleVote - 1)
+        if (isDisliked === false){
+            setIsDisliked(true)
+            setArticleVote(articleVote - 1)
+            downvoteArticle(articleid)
+            setDislikeButtonStyle("clicked")
+            setLikeButtonStyle("clicked")
+           
+        } else {
+        upvoteArticle(articleid)
+        setArticleVote(articleVote + 1)
+        setIsDisliked(false)
+        setDislikeButtonStyle("normal")
+        setLikeButtonStyle("normal")
+      
     }
+}
+
+
+
 if (isLoading) return <Loading/>
 
 return (
@@ -54,11 +89,11 @@ return (
         <h4>written by: {author}</h4>
         <img src={article_img_url}></img>
         <p>{body}</p>
-        <p>votes: {articleVote} <button className="vote-buttons" onClick={upVote}>👍</button>
-        <button className="vote-buttons" onClick={downVote}>👎</button></p>
+        <p>votes: {articleVote} <button  className={likeButtonStyle} onClick={upVote}>👍</button>
+        <button className={dislikeButtonStyle} onClick={downVote}>👎</button></p>
         <p>{comment_count} comments:</p>
         <div className="comments">
-        <Comments comments={comments}/>
+        <Comments articleid={articleid} comments={comments}/>
         </div>
     </article>
 
