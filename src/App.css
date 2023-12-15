@@ -80,6 +80,9 @@ h1{
   filter: drop-shadow(0 0 2em #01042daa);
 }
 
+
+
+
 .vote-buttons {
   font-size: 0.8em;
   border: 1px solid black;
@@ -117,4 +120,27 @@ h1{
   border: 1px solid black;
   text-shadow: rebeccapurple 0 0 10px;
   box-shadow: goldenrod;
+}
+
+.error{
+border: 3px solid red;
+background-color: rgb(188, 72, 72);
+}
+
+textarea{
+  text-align: center;
+}
+
+.add-comment-form{
+  text-align: center;
+}
+
+input {
+  width: fit-content;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  position: absolute;
+  text-align: center;
+  
 }

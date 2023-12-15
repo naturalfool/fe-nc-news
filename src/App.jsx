@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Header from './Components/Header'
 import { Route, Routes, BrowserRouter, useParams } from 'react-router-dom'
 import UsersView from './Components/UsersView'
+import Error from './Components/Error'
 
 
 
@@ -28,6 +29,7 @@ const [filterTerm, setFilterTerm] = useState("")
 <Route path="/" element= {<MainView filterTerm={filterTerm} setFilterTerm={setFilterTerm}/>} />
 <Route path="/articles/:articleid" element={<SingleArticle  />} />
 <Route path="/users" element={<UsersView/>}/>
+<Route path="/*" element={<Error message="sorry, that page does not currently exist :("/>} />
 </Routes>
 </BrowserRouter>
 </UserProvider>

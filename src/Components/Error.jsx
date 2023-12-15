@@ -3,8 +3,9 @@
  const Error = (props) => {
 const { message } = props
 return (
-    <div>
-        <h2>{message}</h2>
+    <div className="error">
+        <h2>An error occurred! :(</h2>
+        <p>{message}</p>
     </div>
 )
  }

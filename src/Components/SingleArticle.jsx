@@ -92,7 +92,7 @@ const SingleArticle = () => {
     }
 }
 
-if (apiError) return <Error message="Something went wrong!"/>
+// if (apiError) return <Error message="Something went wrong!"/>
 
 if (isLoading) return <Loading/>
 
@@ -106,6 +106,7 @@ return (
         <p>votes: {articleVote} <button disabled={likeButtonDisabled}  className={likeButtonStyle} onClick={upVote}>👍</button>
         <button disabled ={dislikeButtonDisabled} className={dislikeButtonStyle} onClick={downVote}>👎</button></p>
         <p>{comment_count} comments:</p>
+        {apiError ? <Error /> : null}
         <div className="comments">
         <Comments articleid={articleid} comments={comments} setComments={setComments}/>
         </div>

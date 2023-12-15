@@ -2,7 +2,7 @@ import { useState } from "react"
 
 
 const Collapsible = ({ children }) => {
-const [isHidden, setIsHidden] = useState(true)
+const [isHidden, setIsHidden] = useState(false)
 
 function toggleIsHidden(){
     setIsHidden(!isHidden)
