@@ -61,3 +61,25 @@ export const deleteComment = (comment_id) => {
     return res.data;
   });
 };
+
+export const upvoteComment = (comment_id) => {
+  return newsApi.patch(`/comments/${comment_id}`,
+  {inc_votes: 1}
+  ).then((res) => {
+   if (res.request.status === 400){
+    return Promise.reject({status: 400, message: "Bad request"})
+   }
+    return res.data
+  })
+  }
+  
+  export const downvoteComment = (comment_id) => {
+    return newsApi.patch(`/comments/${comment_id}`,
+    {inc_votes: -1}
+    ).then((res) => {
+      if (res.request.status === 400){
+        return Promise.reject({status: 400, message: "Bad request"})
+       }
+      return res.data
+    })
+    }

@@ -1,6 +1,7 @@
-import { deleteComment, getCommentsByArticleId } from "../utils/api.utils"
-import { useState, useContext } from "react"
+import { deleteComment, downvoteComment, getCommentsByArticleId, upvoteComment } from "../utils/api.utils"
+import { useState, useContext, useEffect } from "react"
 import { UserContext } from "../Contexts/UserContext"
+import { getArticleById } from "../utils/api.utils"
 
 
 const CommentCard = ({comment, comment_id, comments, articleid, setComments}) => {
@@ -11,8 +12,24 @@ const CommentCard = ({comment, comment_id, comments, articleid, setComments}) =>
     const [dislikeButtonStyle, setDislikeButtonStyle] = useState("normal")
     const [likeButtonDisabled, setLikeButtonDisabled] = useState(false)
     const [dislikeButtonDisabled, setDislikeButtonDisabled] = useState(false)
-    const { user, setUser } = useContext(UserContext);
 
+
+    useEffect(() => {
+        getArticleById(articleid).then((article) => {
+            setSingleArticle(article)
+            setArticleVote(article.votes)
+            setIsLoading(false)
+        })
+    }, [articleid])
+    
+    
+    useEffect(() => {
+        getCommentsByArticleId(articleid).then((comments) => {
+            setComments(comments)
+            setCommentVote(comment.votes)
+            setIsLoading(false)
+        })
+    }, [articleid])
 
 
 const handleDelete = () => {
@@ -28,12 +45,18 @@ const handleDelete = () => {
 
 const upVote = () => {
     if(isLiked === false) {
-        setIsLiked(true)
+        upvoteComment(comment_id)
         setCommentVote(commentVote + 1)
+        setIsLiked(true)
         setLikeButtonStyle("clicked")
         setDislikeButtonDisabled(true)
+        getCommentsByArticleId(articleid).then((comments) => {
+            setComments(comments)
+            return comments
+        })
         
     } else {
+    downvoteComment(comment_id)
     setCommentVote(commentVote - 1)
     setIsLiked(false)
     setLikeButtonStyle("normal")
@@ -44,12 +67,14 @@ const upVote = () => {
 
 const downVote = () => {
     if (isDisliked === false){
-        setIsDisliked(true)
+        downvoteComment(comment_id)
         setCommentVote(commentVote - 1)
+        setIsDisliked(true)
         setDislikeButtonStyle("clicked")
         setLikeButtonDisabled(true)
        
     } else {
+        upvoteComment(comment_id)
     setCommentVote(commentVote + 1)
     setIsDisliked(false)
     setDislikeButtonStyle("normal")
